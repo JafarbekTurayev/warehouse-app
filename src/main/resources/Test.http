@@ -1,0 +1,42 @@
+
+###
+POST http://localhost:80/api/warehouse/add
+Content-Type: application/json
+
+{
+  "name": "Sklad 2"
+}
+
+###
+PUT http://localhost:80/api/warehouse/edit/1
+Content-Type: application/json
+
+{
+}
+
+###
+GET http://localhost:80/api/warehouse/changeStatus/2
+
+###
+
+###
+DELETE http://localhost:80/api/warehouse/10
+
+###
+
+###
+POST http://localhost:80/api/category/add
+Content-Type: application/json
+
+{
+  "name": "Smartphone",
+  "parentId": 1
+}
+
+###
+
+###
+GET http://localhost:80/api/category/byParentId/1
+###
+
+
