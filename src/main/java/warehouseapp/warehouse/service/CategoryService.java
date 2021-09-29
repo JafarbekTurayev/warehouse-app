@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import warehouseapp.warehouse.entity.Category;
 import warehouseapp.warehouse.payload.ApiResponse;
 import warehouseapp.warehouse.payload.CategoryDTO;
+import warehouseapp.warehouse.projection.CategoryProjection;
 import warehouseapp.warehouse.repository.CategoryRepository;
 
 import java.util.List;
@@ -34,7 +35,27 @@ public class CategoryService {
     }
 
     public ApiResponse getByParentId(Integer id) {
-        List<Category> allByParentCategoryId = categoryRepository.findAllByParentCategoryId(id);
+        List<CategoryProjection> allByParentCategoryId = categoryRepository.findAllByParentCategoryId(id);
         return new ApiResponse("Mana", true, allByParentCategoryId);
+    }
+
+    public ApiResponse edit(Integer id, CategoryDTO categoryDTO) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (!categoryOptional.isPresent()) return new ApiResponse("NOT", false);
+
+        Category edit = categoryOptional.get();
+        if (categoryDTO.getName() != null) {
+            edit.setName(categoryDTO.getName());
+        }
+        if (categoryDTO.getParentId() != null) {
+            Optional<Category> byId = categoryRepository.findById(categoryDTO.getParentId());
+            edit.setParentCategory(byId.get());
+        }
+//        if (categoryDTO.getParentId() != 0) {
+//        } else {
+//            edit.setParentCategory(null);
+//        }
+        categoryRepository.save(edit);
+        return new ApiResponse("EDIT!", true);
     }
 }

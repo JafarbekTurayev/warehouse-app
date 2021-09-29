@@ -1,3 +1,7 @@
+GET http://localhost:80/api/category/2
+Accept: application/json
+
+###
 
 ###
 POST http://localhost:80/api/warehouse/add
@@ -37,6 +41,39 @@ Content-Type: application/json
 
 ###
 GET http://localhost:80/api/category/byParentId/1
+
 ###
+
+###
+PUT http://localhost:80/api/category/edit/2
+Content-Type: application/json
+
+{
+  "name": "Telefon"
+}
+
+###
+
+
+
+###
+POST http://localhost:80/api/product
+Content-Type: application/json
+
+{
+  "name": "REDMI NOTE 8",
+  "categoryId": 2,
+  "measurementId": 1
+}
+
+###
+###
+GET http://localhost:80/api/product/search?name="REDMI"
+###
+###
+GET http://localhost:80/api/product/2
+
+###
+
 
 

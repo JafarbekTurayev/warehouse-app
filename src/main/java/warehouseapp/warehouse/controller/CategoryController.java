@@ -9,6 +9,7 @@ import warehouseapp.warehouse.repository.CategoryRepository;
 import warehouseapp.warehouse.service.CategoryService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/category")
@@ -23,6 +24,18 @@ public class CategoryController {
         return categoryService.saveCategory(categoryDTO);
     }
 
+    @GetMapping("/list")
+    public ApiResponse getAll() {
+        return new ApiResponse("Mana list", true, categoryRepository.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse getOne(@PathVariable Integer id) {
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+        if (!optionalCategory.isPresent()) return new ApiResponse("NOT", false);
+        return new ApiResponse("Mana", true, optionalCategory.get());
+    }
+
     //eng katta Parentlar
     @GetMapping("/parentList")
     public ApiResponse getParents() {
@@ -35,5 +48,17 @@ public class CategoryController {
         return categoryService.getByParentId(id);
     }
 
+    @PutMapping("/edit/{id}")
+    public ApiResponse edit(@PathVariable Integer id, @RequestBody CategoryDTO categoryDTO) {
+        return categoryService.edit(id, categoryDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse delete(@PathVariable Integer id) {
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+        }
+        return new ApiResponse("Saved!", true);
+    }
 
 }
