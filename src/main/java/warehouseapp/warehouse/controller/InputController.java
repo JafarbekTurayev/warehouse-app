@@ -8,6 +8,7 @@ import warehouseapp.warehouse.payload.InputDTO;
 import warehouseapp.warehouse.repository.InputRepository;
 import warehouseapp.warehouse.service.InputService;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -17,19 +18,16 @@ public class InputController {
     InputService inputService;
     @Autowired
     InputRepository inputRepository;
-    @PostMapping("/add")
-    public ApiResponse save(@RequestBody InputDTO inputDTO){
-       return inputService.addInput(inputDTO);
 
+    @PostMapping("/add")
+    public ApiResponse save(@RequestBody InputDTO inputDTO) throws ParseException {
+        return inputService.addInput(inputDTO);
     }
+
     @GetMapping("/list")
-    public List<Input> getAll(){
+    public List<Input> getAll() {
         List<Input> all = inputRepository.findAll();
         return all;
     }
-
-
-
-
 
 }

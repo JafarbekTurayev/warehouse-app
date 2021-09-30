@@ -8,6 +8,8 @@ import warehouseapp.warehouse.payload.InputDTO;
 import warehouseapp.warehouse.payload.InputProductDTO;
 import warehouseapp.warehouse.repository.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -34,10 +36,13 @@ public class InputService {
     WarehouseRepository warehouseRepository;
 
 
-    public ApiResponse addInput(InputDTO inputDTO) {
+    public ApiResponse addInput(InputDTO inputDTO) throws ParseException {
         Input input = new Input();
         input.setCode(UUID.randomUUID().toString());
-        input.setDate(inputDTO.getDate());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(inputDTO.getDate());
+        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(format);
+        input.setDate(date1);
         input.setFactureNumber(UUID.randomUUID().toString());
 
         Optional<Currency> optionalCurrency = currencyRepository.findById(inputDTO.getCurrencyId());
