@@ -61,7 +61,7 @@ POST http://localhost:80/api/product
 Content-Type: application/json
 
 {
-  "name": "REDMI NOTE 8",
+  "name": "Samsung S21",
   "categoryId": 2,
   "measurementId": 1
 }
@@ -69,11 +69,65 @@ Content-Type: application/json
 ###
 ###
 GET http://localhost:80/api/product/search?name="REDMI"
+
 ###
 ###
 GET http://localhost:80/api/product/2
 
 ###
+###
+POST http://localhost:80/api/output
+Content-Type: application/json
 
+{
+  "date": "2021-09-29",
+  "warehouseId": 1,
+  "clientId": 1,
+  "currencyId": 1,
+  "outputProductDTOList": [
+    {
+      "productId": 1,
+      "amount": 10,
+      "price": 12000
+    },
+    {
+      "productId": 2,
+      "amount": 1,
+      "price": 1000
+    }
+  ]
+}
+
+
+
+###
+
+
+###
+POST http://localhost/api/input/add
+Content-Type: application/json
+
+{
+  "date": "2021-09-29",
+  "warehouseId": 1,
+  "supplierId": 1,
+  "currencyId": 1,
+  "inputProductDTOList": [
+    {
+      "productId": 1,
+      "amount": 10,
+      "price": 12000,
+      "expireDate": "2021-10-11"
+    },
+    {
+      "productId": 2,
+      "amount": 1,
+      "price": 1000,
+      "expireDate": "2021-10-10"
+    }
+  ]
+}
+
+###
 
 
