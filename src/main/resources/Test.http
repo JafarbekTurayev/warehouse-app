@@ -4,11 +4,11 @@ Accept: application/json
 ###
 
 ###
-POST http://localhost:80/api/warehouse/add
+POST http://localhost:4444/api/warehouse/add
 Content-Type: application/json
 
 {
-  "name": "Sklad 2"
+  "name": "Sklad 4"
 }
 
 ###
@@ -17,6 +17,18 @@ Content-Type: application/json
 
 {
 }
+
+###
+POST http://localhost:80/output/add
+Content-Type: application/json
+
+{
+  "date": "2020-12-01",
+  "clientId": 1,
+  "warehouseId": 1,
+  "currencyId": 1
+}
+
 
 ###
 GET http://localhost:80/api/warehouse/changeStatus/2
