@@ -1,5 +1,6 @@
 package warehouseapp.warehouse.entity;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import warehouseapp.warehouse.entity.template.AbsEntity;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 public class Output extends AbsEntity {
 
     private Date date;
