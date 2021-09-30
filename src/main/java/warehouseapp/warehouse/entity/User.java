@@ -1,5 +1,6 @@
 package warehouseapp.warehouse.entity;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import warehouseapp.warehouse.entity.template.AbsNameEntity;
 
@@ -9,7 +10,9 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "users")
+@Data
 public class User extends AbsNameEntity {
+
     private String lastName;
     private String phoneNumber;
     private String code;
