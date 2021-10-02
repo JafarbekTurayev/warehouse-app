@@ -54,7 +54,6 @@ public class OutputService {
             OutputProduct outputProduct = new OutputProduct();
             outputProduct.setAmount(outputProductDTO.getAmount());
             outputProduct.setPrice(outputProductDTO.getPrice());
-
             Optional<Product> optionalProduct = productRepository.findById(outputProductDTO.getProductId());
             if (!optionalProduct.isPresent()) return new ApiResponse("Not found", false);
             Product product = optionalProduct.get();
