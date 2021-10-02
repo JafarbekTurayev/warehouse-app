@@ -8,5 +8,4 @@ import java.util.UUID;
 public class OutputProductDTO {
     private Integer productId;
     private double amount,price;
-    private UUID outputId;
 }

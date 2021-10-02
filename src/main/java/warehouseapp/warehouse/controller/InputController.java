@@ -29,12 +29,10 @@ public class InputController {
                 ? HttpStatus.CREATED:
                 HttpStatus.CONFLICT).
                 body(apiResponse);
-
     }
 
     @GetMapping
     public HttpEntity<List<Input>> getAll() {
         return  ResponseEntity.ok(inputRepository.findAll());
     }
-
 }

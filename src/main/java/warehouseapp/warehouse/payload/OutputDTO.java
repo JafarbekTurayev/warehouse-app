@@ -11,4 +11,5 @@ import java.util.List;
 public class OutputDTO {
     private Date date;
     private Integer warehouseId, clientId, currencyId;
+    private List<OutputProductDTO> outputProductDTOList;
 }

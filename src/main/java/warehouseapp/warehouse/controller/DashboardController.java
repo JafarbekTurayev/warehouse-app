@@ -27,8 +27,8 @@ public class DashboardController {
         return ResponseEntity.ok(dashboardService.getDaily(date));
     }
 
-//    @GetMapping("/notification")
-//    public ApiResponse getNotification(@RequestParam String date) throws ParseException {
-//        return dashboardService.notification(date);
-//    }
+    @GetMapping("/notification")
+    public ApiResponse getNotification(@RequestParam String date) throws ParseException {
+        return dashboardService.notification(date);
+    }
 }
