@@ -56,4 +56,10 @@ public class UserService {
         }
         return new ApiResponse("Edited!",true);
     }
+
+    public ApiResponse delete(Integer id) {
+        if (userRepository.existsById(id)) return  new ApiResponse("Not Found", false);
+            userRepository.deleteById(id);
+        return new ApiResponse("Deleted!",true);
+    }
 }
