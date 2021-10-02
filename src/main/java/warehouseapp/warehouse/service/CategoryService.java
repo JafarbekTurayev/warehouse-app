@@ -58,4 +58,16 @@ public class CategoryService {
         categoryRepository.save(edit);
         return new ApiResponse("EDIT!", true);
     }
+
+    public ApiResponse getOne(Integer id) {
+        Optional<Category> byId = categoryRepository.findById(id);
+        return byId.map(category -> new ApiResponse("Mana", true, category)).orElseGet(() -> new ApiResponse("NOT FOUND!", false));
+    }
+
+    public ApiResponse delete(Integer id) {
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+        }
+        return new ApiResponse("Success!", true);
+    }
 }
