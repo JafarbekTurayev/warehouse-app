@@ -1,6 +1,8 @@
 package warehouseapp.warehouse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +23,8 @@ public class DashboardController {
     DashboardService dashboardService;
 
     @GetMapping("/daily")
-    public ApiResponse getDailyInputProduct(@RequestParam String date) throws ParseException {
-        return dashboardService.getDaily(date);
+    public HttpEntity<?> getDailyInputProduct(@RequestParam String date) throws ParseException {
+        return ResponseEntity.ok(dashboardService.getDaily(date));
     }
 
 //    @GetMapping("/notification")
