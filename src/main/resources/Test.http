@@ -1,6 +1,4 @@
-GET http://localhost:80/api/category/2
-Accept: application/json
-
+DELETE http://localhost:80/api/category/3
 ###
 
 ###
