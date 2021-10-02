@@ -1,6 +1,9 @@
 package warehouseapp.warehouse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import warehouseapp.warehouse.entity.Category;
 import warehouseapp.warehouse.payload.ApiResponse;
@@ -19,46 +22,52 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-    @PostMapping("/add")
-    public ApiResponse save(@RequestBody CategoryDTO categoryDTO) {
-        return categoryService.saveCategory(categoryDTO);
+    @PostMapping
+    public HttpEntity<?> save(@RequestBody CategoryDTO categoryDTO) {
+        ApiResponse apiResponse = categoryService.saveCategory(categoryDTO);
+        return ResponseEntity.status(apiResponse.isSuccess()
+                ? HttpStatus.CREATED :
+                HttpStatus.CONFLICT).
+                body(apiResponse);
     }
 
-    @GetMapping("/list")
-    public ApiResponse getAll() {
-        return new ApiResponse("Mana list", true, categoryRepository.findAll());
+    @GetMapping
+    public HttpEntity<List<Category>> getAll() {
+        return ResponseEntity.ok(categoryRepository.findAll());
     }
 
     @GetMapping("/{id}")
-    public ApiResponse getOne(@PathVariable Integer id) {
-        Optional<Category> optionalCategory = categoryRepository.findById(id);
-        if (!optionalCategory.isPresent()) return new ApiResponse("NOT", false);
-        return new ApiResponse("Mana", true, optionalCategory.get());
+    public HttpEntity<?> getOne(@PathVariable Integer id) {
+//        return ResponseEntity.status(categoryService.getOne(id).isSuccess()
+//                ? HttpStatus.OK
+//                : HttpStatus.NOT_FOUND)
+//                .body(categoryService.getOne(id));
+        return ResponseEntity.ok(categoryService.getOne(id));
     }
 
     //eng katta Parentlar
     @GetMapping("/parentList")
-    public ApiResponse getParents() {
-        return categoryService.getParents();
+    public HttpEntity<?> getParents() {
+        return ResponseEntity.ok(categoryService.getParents());
     }
 
     //Parent Id {id} bolalari
     @GetMapping("/byParentId/{id}")
-    public ApiResponse getByParentId(@PathVariable Integer id) {
-        return categoryService.getByParentId(id);
+    public HttpEntity<?> getByParentId(@PathVariable Integer id) {
+        return ResponseEntity.ok(categoryService.getByParentId(id));
     }
 
     @PutMapping("/edit/{id}")
-    public ApiResponse edit(@PathVariable Integer id, @RequestBody CategoryDTO categoryDTO) {
-        return categoryService.edit(id, categoryDTO);
+    public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody CategoryDTO categoryDTO) {
+        ApiResponse response = categoryService.edit(id, categoryDTO);
+        return ResponseEntity.status(response.isSuccess()
+                ? HttpStatus.ACCEPTED
+                : HttpStatus.CONFLICT).body(response);
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse delete(@PathVariable Integer id) {
-        if (categoryRepository.existsById(id)) {
-            categoryRepository.deleteById(id);
-        }
-        return new ApiResponse("Saved!", true);
+    public HttpEntity<?> delete(@PathVariable Integer id) {
+        return ResponseEntity.ok(categoryService.delete(id));
     }
 
 }

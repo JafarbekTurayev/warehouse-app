@@ -1,9 +1,7 @@
 package warehouseapp.warehouse.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import warehouseapp.warehouse.entity.template.AbsEntity;
 
 import javax.persistence.Entity;
@@ -12,10 +10,8 @@ import javax.persistence.OneToOne;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@Data
 public class OutputProduct extends AbsEntity {
 
     @OneToOne
