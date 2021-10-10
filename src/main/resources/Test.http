@@ -1,12 +1,23 @@
+#GET http://localhost:80/api/category
+#Accept: application/json
+#Authorization: Basic Auth
+#
+#{
+#username:admin,
+#password:123
+#}
+
+###
 DELETE http://localhost:80/api/category/3
+
 ###
 
 ###
-POST http://localhost:80/api/warehouse/add
+POST http://localhost:4444/api/warehouse/add
 Content-Type: application/json
 
 {
-  "name": "Sklad 2"
+  "name": "Sklad 4"
 }
 
 ###
@@ -15,6 +26,18 @@ Content-Type: application/json
 
 {
 }
+
+###
+POST http://localhost:80/output/add
+Content-Type: application/json
+
+{
+  "date": "2020-12-01",
+  "clientId": 1,
+  "warehouseId": 1,
+  "currencyId": 1
+}
+
 
 ###
 GET http://localhost:80/api/warehouse/changeStatus/2
@@ -51,6 +74,7 @@ Content-Type: application/json
 }
 
 ###
+
 
 
 
@@ -141,4 +165,4 @@ GET http://localhost:80/api/dashboard/daily?date=2021-10-10
 ###
 
 ###
-GET http://localhost:80/api/dashboard/notification?date=2021-10-07
+GET http://localhost:80/api/dashboard/notification?date=2021-10-08

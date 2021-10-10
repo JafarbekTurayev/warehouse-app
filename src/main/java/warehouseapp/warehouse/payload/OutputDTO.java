@@ -1,6 +1,8 @@
 package warehouseapp.warehouse.payload;
 
 import lombok.Data;
+import warehouseapp.warehouse.entity.Output;
+import warehouseapp.warehouse.entity.OutputProduct;
 
 import java.util.Date;
 import java.util.List;

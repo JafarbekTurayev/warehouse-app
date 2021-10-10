@@ -1,9 +1,13 @@
 package warehouseapp.warehouse.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import warehouseapp.warehouse.entity.Category;
 import warehouseapp.warehouse.payload.ApiResponse;
@@ -17,11 +21,18 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
-    @Autowired
+    final
     CategoryRepository categoryRepository;
-    @Autowired
+    final
     CategoryService categoryService;
 
+    public CategoryController(CategoryRepository categoryRepository, CategoryService categoryService) {
+        this.categoryRepository = categoryRepository;
+        this.categoryService = categoryService;
+    }
+
+    //    @PreAuthorize(value = "hasRole('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('ADD_CATEGORY')")
     @PostMapping
     public HttpEntity<?> save(@RequestBody CategoryDTO categoryDTO) {
         ApiResponse apiResponse = categoryService.saveCategory(categoryDTO);
@@ -31,11 +42,16 @@ public class CategoryController {
                 body(apiResponse);
     }
 
+    @PreAuthorize(value = "hasAuthority('READ_CATEGORY')")
     @GetMapping
     public HttpEntity<List<Category>> getAll() {
+        //authni debugda ko'rish
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         return ResponseEntity.ok(categoryRepository.findAll());
     }
 
+    @PreAuthorize(value = "hasAuthority('READ_ONE_PRODUCT')")
     @GetMapping("/{id}")
     public HttpEntity<?> getOne(@PathVariable Integer id) {
 //        return ResponseEntity.status(categoryService.getOne(id).isSuccess()

@@ -43,19 +43,13 @@ public class DashboardService {
     }
 
 
-//    public ApiResponse notification(String date) throws ParseException {
-//        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-////        LocalDate localDate = LocalDate.of(date1.getYear(), date1.getMonth(), date1.getDay());
-////        localDate = localDate.plusDays(3);
-////
-////        ZoneId zoneId = ZoneId.systemDefault();
-////
-////        ZonedDateTime zonedDateTime = localDate.atStartOfDay(zoneId);
-////        Date from = Date.from(zonedDateTime.toInstant());
-//
-//        List<InputProduct> dateBefore = inputProductRepository.findAllByExpireDateBefore(from);
-//
-//        return new ApiResponse("Mana", true, dateBefore);
-//
-//    }
+    public ApiResponse notification(String date) throws ParseException {
+        Long currentTime = new SimpleDateFormat("yyyy-MM-dd").parse(date).getTime();
+
+        Date mustDate = new Date(currentTime + (86400 * 1000 * 3));
+        List<InputProduct> dateBefore = inputProductRepository.findAllByExpireDateBefore(mustDate);
+
+        return new ApiResponse("Mana", true, dateBefore);
+
+    }
 }

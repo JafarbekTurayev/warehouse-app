@@ -16,11 +16,13 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class AbsEntity {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "uuid2")
+//    @GeneratedValue(generator = "uuid2")
+//    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     @CreationTimestamp
+
     @Column(nullable = false, updatable = false)
     private Timestamp createdAt;
 

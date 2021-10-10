@@ -1,6 +1,7 @@
 package warehouseapp.warehouse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import warehouseapp.warehouse.entity.Client;
 import warehouseapp.warehouse.payload.ApiResponse;
@@ -20,6 +21,7 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
+    @PreAuthorize(value = "hasAnyRole('ADMIN','USER')")
     @GetMapping("/list")
     public List<Client> clients() {
         return clientRepository.findAll();

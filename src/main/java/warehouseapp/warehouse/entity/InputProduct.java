@@ -19,6 +19,7 @@ public class InputProduct extends AbsEntity {
     private double amount;
     private double price;
     private Date expireDate;
+    private boolean active = true;
 
     @ManyToOne
     private Input input;

@@ -1,6 +1,9 @@
 package warehouseapp.warehouse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import warehouseapp.warehouse.entity.Input;
 import warehouseapp.warehouse.payload.ApiResponse;
@@ -19,15 +22,17 @@ public class InputController {
     @Autowired
     InputRepository inputRepository;
 
-    @PostMapping("/add")
-    public ApiResponse save(@RequestBody InputDTO inputDTO) throws ParseException {
-        return inputService.addInput(inputDTO);
+    @PostMapping
+    public HttpEntity<?> save(@RequestBody InputDTO inputDTO) throws ParseException {
+        ApiResponse apiResponse = inputService.addInput(inputDTO);
+        return ResponseEntity.status(apiResponse.isSuccess()
+                ? HttpStatus.CREATED:
+                HttpStatus.CONFLICT).
+                body(apiResponse);
     }
 
-    @GetMapping("/list")
-    public List<Input> getAll() {
-        List<Input> all = inputRepository.findAll();
-        return all;
+    @GetMapping
+    public HttpEntity<List<Input>> getAll() {
+        return  ResponseEntity.ok(inputRepository.findAll());
     }
-
 }
